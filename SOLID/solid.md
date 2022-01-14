@@ -23,7 +23,8 @@
 ### SRP | 문제
 
 - Shape 리스트받아서 넓이의 합을 계산하고 HTML 으로 출력하는 AreaCalculator 클래스를 만들었다.
-- 여기서 출력을 XML이나 JSON으로 출력해야 한다면?
+
+> 출력을 XML이나 JSON으로 출력해야 한다면?
 
 ```java
 class AreaCalculator {
@@ -92,6 +93,8 @@ class SumCalculatorOutputer {
 
 - Square 클래스와 Circle 클래스의 리스트를 인자로 받아서 넓이의 합을 구하는 클래스 구현
 
+> 삼각형, 직사각형, 육각형 등의 형태 클래스를 추가해야한다면?
+
 ```java
 
 class Sqaure {
@@ -139,8 +142,6 @@ class AreaCalculator {
   }
 }
 ```
-
-- 삼각형, 직사각형, 육각형 등의 형태 클래스를 추가해야한다면?
 
 ### OCP | 해결
 
