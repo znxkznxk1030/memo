@@ -4,13 +4,15 @@
 
 ## 직면한 문제
 
-- 개발을 막 시작한 사람이라면 간결한 코드로 적은 리소스와 시간으로 과제를 해결하는 것만이 가장 중요한 문제라고 여기곤 합니다.
-- 물론 퍼포먼스는 중요한 문제지만, 베테랑 개발자들은 중요한 문제가 더 있다고 생각한 것 같습니다.
-- 교과서와 다르게 실제 과제는 요구사항이 명확하거나 고정되어 있지 않고,또 한번 제출 했다고 손을 털수도 없습니다.
-- 빵을 파는 앱에서 음료룰 추가하거나, 배달하는 서비스를 추가하는 일은 너무나도 흔한 일이죠.
-- 무엇보다 혼자보다 여럿이서 팀으로 문제를 해결해야 합니다.
-- 그렇기에 적은노력으로 대처 할 코드를 만드는 것이 우리가 직면한 중요한 문제 입니다.
-- 그리고 SOLID 원칙은 이런 중요한 문제를 현명하게 해결할 수 있도록 안내합니다.
+```text
+개발을 막 시작한 사람이라면 간결한 코드로 적은 리소스와 시간으로 과제를 해결하는 것만이 가장 중요한 문제라고 여기곤 합니다.
+물론 퍼포먼스는 중요한 문제지만, 베테랑 개발자들은 중요한 문제가 더 있다고 생각한 것 같습니다.
+교과서와 다르게 실제 과제는 요구사항이 명확하거나 고정되어 있지 않고,또 한번 제출 했다고 손을 털수도 없습니다.
+빵을 파는 앱에서 음료룰 추가하거나, 배달하는 서비스를 추가하는 일은 너무나도 흔한 일이죠.
+무엇보다 혼자보다 여럿이서 팀으로 문제를 해결해야 합니다.
+그렇기에 적은노력으로 대처 할 코드를 만드는 것이 우리가 직면한 중요한 문제 입니다.
+그리고 SOLID 원칙은 이런 중요한 문제를 현명하게 해결할 수 있도록 안내합니다.
+```
 
 ## 단일 책임 원칙 ( SRP | Single Responsibility Principle )
 
@@ -149,7 +151,7 @@ interface Shape {
   public Integer area();
 }
 
-class Sqaure {
+class Sqaure implements Shape {
   private Integer length;
 
   public Square( Integer length ) {
@@ -161,7 +163,7 @@ class Sqaure {
   }
 }
 
-class Circle {
+class Circle implements Shape {
   private Integer radius;
 
   public Circle( Integer radius ) {
@@ -174,16 +176,16 @@ class Circle {
 }
 
 class AreaCalculator {
-  private List<Object> shapes;
+  private List<Shape> shapes;
 
-  public AreaCalculator( List<Object> shapes ) {
+  public AreaCalculator( List<Shape> shapes ) {
     this.shapes = shapes;
   }
 
   public Integer sum () {
     Integer result = 0;
 
-    for (Object shape: shapes) { 
+    for (Shape shape: shapes) { 
       result += shape.area();
     }
     return result;
