@@ -7,7 +7,7 @@
 ```text
 개발을 막 시작한 사람이라면 간결한 코드로 적은 리소스와 시간으로 과제를 해결하는 것만이 가장 중요한 문제라고 여기곤 합니다.
 물론 퍼포먼스는 중요한 문제지만, 베테랑 개발자들은 중요한 문제가 더 있다고 생각한 것 같습니다.
-교과서와 다르게 실제 과제는 요구사항이 명확하거나 고정되어 있지 않고,또 한번 제출 했다고 손을 털수도 없습니다.
+교과서와 다르게 실제 과제는 요구사항이 명확하거나 고정되어 있지 않고, 한번 제출 했다고 손을 털수도 없습니다.
 빵을 파는 앱에서 음료룰 추가하거나, 배달하는 서비스를 추가하는 일은 너무나도 흔한 일이죠.
 무엇보다 혼자보다 여럿이서 팀으로 문제를 해결해야 합니다.
 그렇기에 적은노력으로 대처 할 코드를 만드는 것이 우리가 직면한 중요한 문제 입니다.
@@ -159,6 +159,7 @@ class Sqaure implements Shape {
     this.length = length;
   }
 
+  @Override
   public Integer area() {
     return Math.pow(length, 2);
   }
@@ -171,6 +172,7 @@ class Circle implements Shape {
     this.radius = radius;
   }
 
+  @Override
   public Integer area() {
     return Math.PI * Math.pow(radius, 2);
   }
@@ -193,3 +195,126 @@ class AreaCalculator {
   }
 }
 ```
+
+## 리스코프 치환 원칙 ( LSP | Liskov Substitution Principle )
+
+> q(x)를 T타입의 x라는 프로퍼티를 증명한다고 ( property provable ) 하자.
+> 그렇다면 T타입의 하위 타입인 S타입에서도 q(y)는 y라는 프로퍼티를 증명할 수 있어야 한다.
+
+- 모든 서브클래스나 구현클래스는 상위클래스 ( 부모클래스 )의 행위 ( 메소드 )를 동일하게 수행할수 있어야 한다는 뜻이다.
+
+### LSP | 문제
+
+- Square 클래스와 Circle 클래스의 리스트를 인자로 받아서 넓이의 합을 구하는 클래스 구현
+- Square area는 Integer를 반환, Circle의 area는 String을 반환한다.
+
+> Triangle 클래스를 추가해야한다면 area의 반환 타입은 무엇으로 해야할까?
+
+```java
+interface Shape {
+  public Integer area();
+}
+
+class Sqaure implements Shape {
+  private Integer length;
+
+  public Square( Integer length ) {
+    this.length = length;
+  }
+
+  @Override
+  public Integer area() {
+    return Math.pow(length, 2);
+  }
+}
+
+class Circle implements Shape {
+  private Integer radius;
+
+  public Circle( Integer radius ) {
+    this.radius = radius;
+  }
+
+  @Override
+  public String area() {  // 실제로는 타입체크 때문에 불가능 하지만, 설명을 위해 에러가 없다고 친다.
+    return "" + Math.PI * Math.pow(radius, 2);
+  }
+}
+
+class AreaCalculator {
+  private List<Shape> shapes;
+
+  public AreaCalculator( List<Shape> shapes ) {
+    this.shapes = shapes;
+  }
+
+  public Integer sum () {
+    Integer result = 0;
+
+    for (Shape shape: shapes) { 
+      Object area = shape.area();
+      if (area instanceof Interger){
+        result += shape.area();
+      } else {
+        result += Integer.valueOf(shape.area());
+      }
+    }
+    return result;
+  }
+}
+
+```
+
+### LSP | 해결
+
+- Java와같은 정적타입언어는 반환 값에 대해서 타입체크를 하기 때문에 위반하는 경우는 잘 없다.
+- 그러나 동적타입언어에서는 반환 값에 대한 타입체크가 이루어 지지 않기 때문에 주의해야한다.
+
+```java
+interface Shape {
+  public Integer area();
+}
+
+class Sqaure implements Shape {
+  private Integer length;
+
+  public Square( Integer length ) {
+    this.length = length;
+  }
+
+  @Override
+  public Integer area() {
+    return Math.pow(length, 2);
+  }
+}
+
+class Circle implements Shape {
+  private Integer radius;
+
+  public Circle( Integer radius ) {
+    this.radius = radius;
+  }
+
+  @Override
+  public Integer area() {
+    return Math.PI * Math.pow(radius, 2);
+  }
+}
+```
+
+## 인터페이스 분리 원칙 ( ISP | Interface Segregation Principle )
+
+### ISP | 문제
+
+### ISP | 해결
+
+## 의존 역전 원칙 ( DIP | Dependency Inversion Principle )
+
+### DIP | 문제
+
+### DIP | 해결
+
+## References
+
+- https://www.digitalocean.com/community/conceptual_articles/s-o-l-i-d-the-first-five-principles-of-object-oriented-design
+- https://velog.io/@kyle/%EA%B0%9D%EC%B2%B4%EC%A7%80%ED%96%A5-SOLID-%EC%9B%90%EC%B9%99-%EC%9D%B4%EB%9E%80
