@@ -93,7 +93,7 @@ class SumCalculatorOutputer {
 
 - Square 클래스와 Circle 클래스의 리스트를 인자로 받아서 넓이의 합을 구하는 클래스 구현
 
-> 삼각형, 직사각형, 육각형 등의 형태 클래스를 추가해야한다면?
+> Triangle, Rectangular, Hexagon 등의 클래스를 추가해야한다면?
 
 ```java
 
@@ -236,7 +236,7 @@ class Circle implements Shape {
   }
 
   @Override
-  public String area() {  // 실제로는 타입체크 때문에 불가능 하지만, 설명을 위해 에러가 없다고 친다.
+  public String area() {  // 실제로는 타입체크 때문에 에러가 발생하지만, 설명의 편의를 위해 에러가 없다고 하자.
     return "" + Math.PI * Math.pow(radius, 2);
   }
 }
@@ -303,6 +303,8 @@ class Circle implements Shape {
 ```
 
 ## 인터페이스 분리 원칙 ( ISP | Interface Segregation Principle )
+
+> 사용하지 않는 인터페이스 또는 사용하지 않는 메소드를 의존( 사용 )하도록 강요해서는 안된다는 원칙.
 
 ### ISP | 문제
 
